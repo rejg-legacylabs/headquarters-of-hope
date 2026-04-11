@@ -1,0 +1,132 @@
+{
+  "name": "PartnerReferral",
+  "type": "object",
+  "properties": {
+    "referrer_name": {
+      "type": "string",
+      "title": "Referrer Name"
+    },
+    "referrer_organization": {
+      "type": "string",
+      "title": "Referrer Organization"
+    },
+    "referrer_email": {
+      "type": "string",
+      "title": "Referrer Email"
+    },
+    "referrer_phone": {
+      "type": "string",
+      "title": "Referrer Phone"
+    },
+    "referrer_role": {
+      "type": "string",
+      "title": "Referrer Role/Title"
+    },
+    "organization_type": {
+      "type": "string",
+      "title": "Organization Type",
+      "enum": [
+        "Probation/Parole",
+        "Community Organization",
+        "Nonprofit",
+        "Workforce Agency",
+        "Church/Faith-Based",
+        "Reentry Organization",
+        "Government Agency",
+        "Other"
+      ]
+    },
+    "participant_first_name": {
+      "type": "string",
+      "title": "Participant First Name"
+    },
+    "participant_last_name": {
+      "type": "string",
+      "title": "Participant Last Name"
+    },
+    "participant_phone": {
+      "type": "string",
+      "title": "Participant Phone"
+    },
+    "participant_email": {
+      "type": "string",
+      "title": "Participant Email"
+    },
+    "reason_for_referral": {
+      "type": "string",
+      "title": "Reason for Referral"
+    },
+    "primary_needs": {
+      "type": "array",
+      "title": "Primary Needs",
+      "items": {
+        "type": "string",
+        "enum": [
+          "Employment",
+          "Housing",
+          "Life Skills",
+          "Digital Literacy",
+          "Transportation",
+          "Document Assistance",
+          "Reentry Support",
+          "Other"
+        ]
+      }
+    },
+    "urgency": {
+      "type": "string",
+      "title": "Urgency",
+      "enum": [
+        "Standard",
+        "Urgent",
+        "Emergency"
+      ]
+    },
+    "additional_notes": {
+      "type": "string",
+      "title": "Additional Notes"
+    },
+    "consent_obtained": {
+      "type": "boolean",
+      "title": "Participant Consent Obtained",
+      "default": false
+    },
+    "status": {
+      "type": "string",
+      "title": "Status",
+      "enum": [
+        "pending_review",
+        "in_review",
+        "accepted",
+        "scheduled",
+        "closed"
+      ],
+      "default": "pending_review"
+    },
+    "source": {
+      "type": "string",
+      "title": "Source",
+      "default": "website_public"
+    },
+    "assigned_to": {
+      "type": "string",
+      "title": "Assigned To"
+    },
+    "admin_notes": {
+      "type": "string",
+      "title": "Admin Notes"
+    },
+    "reference_id": {
+      "type": "string",
+      "title": "Reference ID"
+    }
+  },
+  "required": [
+    "referrer_name",
+    "referrer_organization",
+    "referrer_email",
+    "participant_first_name",
+    "participant_last_name",
+    "consent_obtained"
+  ]
+}

@@ -1,0 +1,71 @@
+{
+  "name": "ContactSubmission",
+  "type": "object",
+  "properties": {
+    "name": {
+      "type": "string",
+      "title": "Full Name"
+    },
+    "email": {
+      "type": "string",
+      "title": "Email"
+    },
+    "phone": {
+      "type": "string",
+      "title": "Phone"
+    },
+    "inquiry_type": {
+      "type": "string",
+      "title": "Inquiry Type",
+      "enum": [
+        "Participant Help",
+        "Partner Inquiry",
+        "Employer Inquiry",
+        "Volunteer Interest",
+        "Donation Question",
+        "General Contact"
+      ]
+    },
+    "subject": {
+      "type": "string",
+      "title": "Subject"
+    },
+    "message": {
+      "type": "string",
+      "title": "Message"
+    },
+    "status": {
+      "type": "string",
+      "title": "Status",
+      "enum": [
+        "new",
+        "in_progress",
+        "resolved",
+        "closed"
+      ],
+      "default": "new"
+    },
+    "source": {
+      "type": "string",
+      "title": "Source",
+      "default": "website_public"
+    },
+    "assigned_to": {
+      "type": "string",
+      "title": "Assigned To"
+    },
+    "admin_notes": {
+      "type": "string",
+      "title": "Admin Notes"
+    },
+    "reference_id": {
+      "type": "string",
+      "title": "Reference ID"
+    }
+  },
+  "required": [
+    "name",
+    "email",
+    "message"
+  ]
+}

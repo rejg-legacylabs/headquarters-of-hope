@@ -5,7 +5,20 @@ import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
 import PageNotFound from './lib/PageNotFound';
 import { AuthProvider, useAuth } from '@/lib/AuthContext';
 import UserNotRegisteredError from '@/components/UserNotRegisteredError';
-// Add page imports here
+import PublicLayout from './components/layout/PublicLayout';
+import Home from './pages/Home';
+import About from './pages/About';
+import Programs from './pages/Programs';
+import JobReadiness from './pages/JobReadiness';
+import HousingSupport from './pages/HousingSupport';
+import Partners from './pages/Partners';
+import Employers from './pages/Employers';
+import GetHelp from './pages/GetHelp';
+import SuccessPathways from './pages/SuccessPathways';
+import Contact from './pages/Contact';
+import Support from './pages/Support';
+import FAQ from './pages/FAQ';
+import AdminDashboard from './pages/admin/AdminDashboard';
 
 const AuthenticatedApp = () => {
   const { isLoadingAuth, isLoadingPublicSettings, authError, navigateToLogin } = useAuth();
@@ -33,7 +46,21 @@ const AuthenticatedApp = () => {
   // Render the main app
   return (
     <Routes>
-      {/* Add your page Route elements here */}
+      <Route element={<PublicLayout />}>
+        <Route path="/" element={<Home />} />
+        <Route path="/about" element={<About />} />
+        <Route path="/programs" element={<Programs />} />
+        <Route path="/job-readiness" element={<JobReadiness />} />
+        <Route path="/housing-support" element={<HousingSupport />} />
+        <Route path="/partners" element={<Partners />} />
+        <Route path="/employers" element={<Employers />} />
+        <Route path="/get-help" element={<GetHelp />} />
+        <Route path="/success-pathways" element={<SuccessPathways />} />
+        <Route path="/contact" element={<Contact />} />
+        <Route path="/support" element={<Support />} />
+        <Route path="/faq" element={<FAQ />} />
+      </Route>
+      <Route path="/admin" element={<AdminDashboard />} />
       <Route path="*" element={<PageNotFound />} />
     </Routes>
   );

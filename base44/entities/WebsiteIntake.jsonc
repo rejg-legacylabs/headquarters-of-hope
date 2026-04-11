@@ -1,0 +1,121 @@
+{
+  "name": "WebsiteIntake",
+  "type": "object",
+  "properties": {
+    "first_name": {
+      "type": "string",
+      "title": "First Name"
+    },
+    "last_name": {
+      "type": "string",
+      "title": "Last Name"
+    },
+    "preferred_name": {
+      "type": "string",
+      "title": "Preferred Name"
+    },
+    "phone": {
+      "type": "string",
+      "title": "Phone"
+    },
+    "email": {
+      "type": "string",
+      "title": "Email"
+    },
+    "date_of_birth": {
+      "type": "string",
+      "format": "date",
+      "title": "Date of Birth"
+    },
+    "current_situation": {
+      "type": "string",
+      "title": "Current Situation"
+    },
+    "primary_needs": {
+      "type": "array",
+      "title": "Primary Needs",
+      "items": {
+        "type": "string",
+        "enum": [
+          "Employment",
+          "Housing",
+          "Life Skills",
+          "Digital Literacy",
+          "Transportation",
+          "Document Assistance",
+          "Reentry Support",
+          "Other"
+        ]
+      }
+    },
+    "housing_need": {
+      "type": "boolean",
+      "title": "Housing Need",
+      "default": false
+    },
+    "employment_need": {
+      "type": "boolean",
+      "title": "Employment Need",
+      "default": false
+    },
+    "transportation_barrier": {
+      "type": "boolean",
+      "title": "Transportation Barrier",
+      "default": false
+    },
+    "document_barrier": {
+      "type": "boolean",
+      "title": "Document Barrier",
+      "default": false
+    },
+    "digital_literacy_help": {
+      "type": "boolean",
+      "title": "Digital Literacy Help Needed",
+      "default": false
+    },
+    "notes": {
+      "type": "string",
+      "title": "Additional Notes"
+    },
+    "consent_to_contact": {
+      "type": "boolean",
+      "title": "Consent to be Contacted",
+      "default": false
+    },
+    "status": {
+      "type": "string",
+      "title": "Status",
+      "enum": [
+        "pending_review",
+        "in_review",
+        "accepted",
+        "referred",
+        "closed"
+      ],
+      "default": "pending_review"
+    },
+    "source": {
+      "type": "string",
+      "title": "Source",
+      "default": "website_public"
+    },
+    "assigned_to": {
+      "type": "string",
+      "title": "Assigned To"
+    },
+    "admin_notes": {
+      "type": "string",
+      "title": "Admin Notes"
+    },
+    "reference_id": {
+      "type": "string",
+      "title": "Reference ID"
+    }
+  },
+  "required": [
+    "first_name",
+    "last_name",
+    "phone",
+    "consent_to_contact"
+  ]
+}

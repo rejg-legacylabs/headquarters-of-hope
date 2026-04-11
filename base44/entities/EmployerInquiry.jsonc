@@ -1,0 +1,104 @@
+{
+  "name": "EmployerInquiry",
+  "type": "object",
+  "properties": {
+    "company_name": {
+      "type": "string",
+      "title": "Company Name"
+    },
+    "contact_name": {
+      "type": "string",
+      "title": "Contact Name"
+    },
+    "contact_title": {
+      "type": "string",
+      "title": "Contact Title"
+    },
+    "contact_email": {
+      "type": "string",
+      "title": "Contact Email"
+    },
+    "contact_phone": {
+      "type": "string",
+      "title": "Contact Phone"
+    },
+    "industry": {
+      "type": "string",
+      "title": "Industry"
+    },
+    "company_size": {
+      "type": "string",
+      "title": "Company Size",
+      "enum": [
+        "1-10",
+        "11-50",
+        "51-200",
+        "201-500",
+        "500+"
+      ]
+    },
+    "interest_type": {
+      "type": "array",
+      "title": "Interest Type",
+      "items": {
+        "type": "string",
+        "enum": [
+          "Hire Participants",
+          "Mentorship",
+          "Job Shadowing",
+          "Internships",
+          "Training Partnership",
+          "Financial Support",
+          "Other"
+        ]
+      }
+    },
+    "positions_available": {
+      "type": "string",
+      "title": "Positions/Roles Available"
+    },
+    "second_chance_friendly": {
+      "type": "boolean",
+      "title": "Second-Chance Friendly Employer",
+      "default": false
+    },
+    "additional_notes": {
+      "type": "string",
+      "title": "Additional Notes"
+    },
+    "status": {
+      "type": "string",
+      "title": "Status",
+      "enum": [
+        "pending_review",
+        "in_review",
+        "active_partner",
+        "declined",
+        "closed"
+      ],
+      "default": "pending_review"
+    },
+    "source": {
+      "type": "string",
+      "title": "Source",
+      "default": "website_public"
+    },
+    "assigned_to": {
+      "type": "string",
+      "title": "Assigned To"
+    },
+    "admin_notes": {
+      "type": "string",
+      "title": "Admin Notes"
+    },
+    "reference_id": {
+      "type": "string",
+      "title": "Reference ID"
+    }
+  },
+  "required": [
+    "company_name",
+    "contact_name",
+    "contact_email"
+  ]
+}
