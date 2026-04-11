@@ -1,5 +1,6 @@
 import { useState, useEffect } from "react";
 import { base44 } from "@/api/base44Client";
+import { useAuth } from "@/lib/AuthContext";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
@@ -126,6 +127,7 @@ function DetailPanel({ item, type, onClose, onUpdate }) {
 }
 
 export default function AdminDashboard() {
+  const { user, isLoadingAuth } = useAuth();
   const [intakes, setIntakes] = useState([]);
   const [referrals, setReferrals] = useState([]);
   const [employers, setEmployers] = useState([]);
@@ -149,7 +151,32 @@ export default function AdminDashboard() {
     setLoading(false);
   };
 
-  useEffect(() => { loadData(); }, []);
+  useEffect(() => {
+    if (user?.role === 'admin') loadData();
+  }, [user]);
+
+  if (isLoadingAuth) {
+    return (
+      <div className="fixed inset-0 flex items-center justify-center">
+        <div className="w-8 h-8 border-4 border-slate-200 border-t-slate-800 rounded-full animate-spin" />
+      </div>
+    );
+  }
+
+  if (!user || user.role !== 'admin') {
+    return (
+      <div className="min-h-screen bg-primary flex items-center justify-center p-6">
+        <div className="text-center">
+          <div className="w-14 h-14 rounded-full bg-white/10 flex items-center justify-center mx-auto mb-4">
+            <Heart className="w-7 h-7 text-secondary" fill="currentColor" />
+          </div>
+          <h1 className="font-heading text-2xl font-bold text-white mb-2">Access Restricted</h1>
+          <p className="text-white/70 text-sm mb-6">This area is for authorized staff only.</p>
+          <Link to="/"><Button size="sm" className="bg-secondary text-primary">Return to Website</Button></Link>
+        </div>
+      </div>
+    );
+  }
 
   const countPending = (arr, field = "pending_review") => arr.filter((a) => a.status === field).length;
 
