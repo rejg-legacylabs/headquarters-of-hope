@@ -5,8 +5,8 @@ import PathwayPreview from "../components/home/PathwayPreview";
 import ImpactSection from "../components/home/ImpactSection";
 import HomeCTA from "../components/home/HomeCTA";
 
-const HERO_IMAGE = "/__generating__/img_f6e613308778.png";
-const KEYS_IMAGE = "/__generating__/img_aefe1714e365.png";
+const HERO_IMAGE = "https://media.base44.com/images/public/69da8f993c6895f2b079653b/8f20fa388_generated_60289809.png";
+const KEYS_IMAGE = "https://media.base44.com/images/public/69da8f993c6895f2b079653b/3151e9d9c_generated_28ba2622.png";
 
 export default function Home() {
   return (

@@ -66,7 +66,7 @@ export default function Partners() {
         eyebrow="Partners & Referrals"
         title="Refer Someone Who Needs Support"
         description="Whether you are a probation officer, case manager, community leader, or concerned supporter, you can connect someone to structured opportunity."
-        image="/__generating__/img_91310c420817.png"
+        image="https://media.base44.com/images/public/69da8f993c6895f2b079653b/626ef8a22_generated_b82e6692.png"
       />
 
       <section className="py-16 lg:py-24">

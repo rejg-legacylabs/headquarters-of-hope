@@ -22,7 +22,7 @@ export default function JobReadiness() {
         eyebrow="Job Readiness"
         title="Building Workforce Confidence & Competence"
         description="Our job readiness program equips participants with the skills, tools, and connections needed to secure and maintain meaningful employment."
-        image="/__generating__/img_2ef69d5e2dc8.png"
+        image="https://media.base44.com/images/public/69da8f993c6895f2b079653b/d3cd7fa48_generated_99d48509.png"
       />
 
       <section className="py-16 lg:py-24">

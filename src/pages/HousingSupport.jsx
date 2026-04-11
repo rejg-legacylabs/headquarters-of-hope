@@ -34,7 +34,7 @@ export default function HousingSupport() {
         eyebrow="Housing Support"
         title="Building the Foundation for Stability"
         description="Stable housing is the foundation upon which everything else is built. We help connect participants to housing pathways and stabilization support."
-        image="/__generating__/img_79591a5b5954.png"
+        image="https://media.base44.com/images/public/69da8f993c6895f2b079653b/6fdb35d7e_generated_992e9f10.png"
       />
 
       <section className="py-16 lg:py-24">

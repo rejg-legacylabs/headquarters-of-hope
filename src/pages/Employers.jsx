@@ -66,7 +66,7 @@ export default function Employers() {
         eyebrow="Employers"
         title="Partner With Us to Rebuild Lives"
         description="Join our network of employers who are making a difference by providing meaningful employment opportunities to motivated, prepared individuals."
-        image="/__generating__/img_20ca08364096.png"
+        image="https://media.base44.com/images/public/69da8f993c6895f2b079653b/4c6476532_generated_4bb93f6e.png"
       />
 
       <section className="py-16 lg:py-24">
