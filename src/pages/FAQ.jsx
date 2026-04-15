@@ -65,6 +65,27 @@ const faqs = [
     ],
   },
   {
+    category: "Transportation Support",
+    items: [
+      {
+        q: "Does Headquarters of Hope Foundation provide transportation?",
+        a: "Yes. We offer coordinated transportation support for participants who have documented transportation barriers. This includes rides to job interviews, first days of work, medical appointments, court and probation check-ins, DMV visits, benefits offices, housing appointments, and more. Submit a request through our Transportation page.",
+      },
+      {
+        q: "Who qualifies for transportation support?",
+        a: "Participants who are actively engaged in our programs and have a verified transportation barrier. Requests must be for an approved purpose (employment, healthcare, legal, housing, or program-related). Case managers can also submit requests on behalf of participants.",
+      },
+      {
+        q: "How do I request a ride?",
+        a: "Visit our Transportation page and complete the Transportation Request Form. Our team reviews all requests and coordinates rides, typically confirming within 1 business day. You can also have a case manager or referral partner submit on your behalf.",
+      },
+      {
+        q: "Can I sponsor or donate to the transportation program?",
+        a: "Yes. Transportation is one of our most impactful and most needed program areas. You can sponsor rides, donate fuel cards, or support the transportation fund through our Support page or by contacting us directly.",
+      },
+    ],
+  },
+  {
     category: "General Questions",
     items: [
       {

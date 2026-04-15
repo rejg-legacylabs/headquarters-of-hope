@@ -2,7 +2,7 @@ import PageHero from "../components/shared/PageHero";
 import ProgramCard from "../components/programs/ProgramCard";
 import { Link } from "react-router-dom";
 import { Button } from "@/components/ui/button";
-import { Briefcase, Home, BookOpen, Monitor, Building2, Compass, Shield } from "lucide-react";
+import { Briefcase, Home, BookOpen, Monitor, Building2, Compass, Shield, Car } from "lucide-react";
 
 const programs = [
   {
@@ -48,10 +48,18 @@ const programs = [
     outcomes: ["Reentry planning and navigation", "Community resource connection", "Mentorship and accountability", "Progress monitoring and support"],
   },
   {
+    icon: Car,
+    title: "Transportation Coordination",
+    description: "Reliable, coordinated transportation to job interviews, first days of work, medical appointments, court dates, and other critical destinations.",
+    outcomes: ["Ride coordination to job interviews & work", "Medical and appointment transport", "Court and probation access", "Emergency approved ride support"],
+    linkTo: "/transportation",
+    linkLabel: "Transportation Details",
+  },
+  {
     icon: Shield,
     title: "Barrier Reduction Support",
-    description: "Identifying and addressing the specific barriers, from transportation to documentation to legal challenges, that prevent individuals from accessing opportunity.",
-    outcomes: ["Document and ID assistance", "Transportation solutions", "Legal resource referrals", "System navigation support"],
+    description: "Identifying and addressing the specific barriers, from documentation to legal challenges, that prevent individuals from accessing opportunity.",
+    outcomes: ["Document and ID assistance", "Work gear and tool support", "Legal resource referrals", "System navigation support"],
   },
 ];
 

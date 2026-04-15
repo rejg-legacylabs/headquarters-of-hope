@@ -4,6 +4,7 @@ import { Heart, Phone, Mail, MapPin } from "lucide-react";
 const quickLinks = [
   { label: "About Us", path: "/about" },
   { label: "Programs", path: "/programs" },
+  { label: "Transportation", path: "/transportation" },
   { label: "How It Works", path: "/success-pathways" },
   { label: "FAQ", path: "/faq" },
 ];
@@ -13,6 +14,7 @@ const getInvolved = [
   { label: "Refer Someone", path: "/partners" },
   { label: "Employers", path: "/employers" },
   { label: "Support Us", path: "/support" },
+  { label: "Funding & Sponsorship", path: "/funding" },
 ];
 
 const programs = [

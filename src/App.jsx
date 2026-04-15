@@ -18,6 +18,8 @@ import SuccessPathways from './pages/SuccessPathways';
 import Contact from './pages/Contact';
 import Support from './pages/Support';
 import FAQ from './pages/FAQ';
+import Transportation from './pages/Transportation';
+import Funding from './pages/Funding';
 import AdminDashboard from './pages/admin/AdminDashboard';
 
 const AuthenticatedApp = () => {
@@ -59,6 +61,8 @@ const AuthenticatedApp = () => {
         <Route path="/contact" element={<Contact />} />
         <Route path="/support" element={<Support />} />
         <Route path="/faq" element={<FAQ />} />
+        <Route path="/transportation" element={<Transportation />} />
+        <Route path="/funding" element={<Funding />} />
       </Route>
       <Route path="/admin" element={<AdminDashboard />} />
       <Route path="*" element={<PageNotFound />} />

@@ -27,8 +27,8 @@ const portals = [
     icon: Building2,
     title: "I Want to Partner",
     description: "Join our network of community organizations, agencies, and supporters working together to rebuild lives.",
-    linkTo: "/contact",
-    linkLabel: "Get Involved",
+    linkTo: "/partners",
+    linkLabel: "Become a Partner",
   },
 ];
 

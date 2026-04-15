@@ -1,15 +1,15 @@
 import { useState } from "react";
 import { Link, useLocation } from "react-router-dom";
-import { Menu, X, Heart } from "lucide-react";
+import { Menu, X, Heart, LogIn } from "lucide-react";
 import { Button } from "@/components/ui/button";
 
 const navLinks = [
-  { label: "Home", path: "/" },
   { label: "About", path: "/about" },
   { label: "Programs", path: "/programs" },
-  { label: "How It Works", path: "/success-pathways" },
+  { label: "Transportation", path: "/transportation" },
   { label: "Partners", path: "/partners" },
-  { label: "Employers", path: "/employers" },
+  { label: "Funding", path: "/funding" },
+  { label: "FAQ", path: "/faq" },
   { label: "Contact", path: "/contact" },
 ];
 
@@ -52,6 +52,11 @@ export default function Navbar() {
           </nav>
 
           <div className="hidden lg:flex items-center gap-3">
+            <Link to="/admin">
+              <Button variant="ghost" size="sm" className="text-muted-foreground hover:text-primary gap-1.5 font-display text-xs tracking-wide uppercase">
+                <LogIn className="w-3.5 h-3.5" /> Staff Login
+              </Button>
+            </Link>
             <Link to="/get-help">
               <Button className="bg-secondary hover:bg-secondary/90 text-secondary-foreground font-display text-xs tracking-wide uppercase">
                 Get Help

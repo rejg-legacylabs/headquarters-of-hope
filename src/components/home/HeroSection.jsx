@@ -23,8 +23,8 @@ export default function HeroSection({ heroImage }) {
           <span className="text-secondary">Structured Opportunity</span>
         </h1>
         <p className="text-lg lg:text-xl text-white/80 max-w-2xl leading-relaxed mb-10">
-          We help individuals overcome barriers to employment, housing, and stability,
-          providing the structure and support needed to build lasting, dignified futures.
+          Transitional housing, employment support, transportation coordination, and structured case management —
+          we provide the complete pathway from instability to lasting independence.
         </p>
         <div className="flex flex-wrap gap-4">
           <Link to="/get-help">
