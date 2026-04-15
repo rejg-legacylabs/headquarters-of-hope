@@ -20,7 +20,9 @@ const getInvolved = [
 const programs = [
   { label: "Job Readiness", path: "/job-readiness" },
   { label: "Housing Support", path: "/housing-support" },
-  { label: "Contact Us", path: "/contact" },
+  { label: "Transportation", path: "/transportation" },
+  { label: "Life Skills", path: "/programs" },
+  { label: "Reentry Support", path: "/success-pathways" },
 ];
 
 export default function Footer() {

@@ -8,7 +8,7 @@ import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@
 import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
 import { Sheet, SheetContent, SheetHeader, SheetTitle } from "@/components/ui/sheet";
-import { Heart, ClipboardList, Users, Briefcase, Mail, ArrowLeft } from "lucide-react";
+import { Heart, ClipboardList, Users, Briefcase, Mail, ArrowLeft, Building2, HandHelping } from "lucide-react";
 import { Link } from "react-router-dom";
 
 const statusColors = {
@@ -30,6 +30,8 @@ function SubmissionCard({ item, type, onSelect }) {
     if (type === "intakes") return `${item.first_name} ${item.last_name}`;
     if (type === "referrals") return `${item.participant_first_name} ${item.participant_last_name}`;
     if (type === "employers") return item.company_name;
+    if (type === "partner_inquiries") return item.organization_name;
+    if (type === "support_interests") return item.name;
     return item.name;
   };
 
@@ -62,12 +64,14 @@ function DetailPanel({ item, type, onClose, onUpdate }) {
     setAssignedTo(item?.assigned_to || "");
   }, [item]);
 
-  const entityMap = { intakes: "WebsiteIntake", referrals: "PartnerReferral", employers: "EmployerInquiry", contacts: "ContactSubmission" };
+  const entityMap = { intakes: "WebsiteIntake", referrals: "PartnerReferral", employers: "EmployerInquiry", contacts: "ContactSubmission", partner_inquiries: "WebsitePartnerInquiry", support_interests: "WebsiteSupportInterest" };
   const statusOptions = {
     intakes: ["pending_review", "in_review", "accepted", "referred", "closed"],
     referrals: ["pending_review", "in_review", "accepted", "scheduled", "closed"],
     employers: ["pending_review", "in_review", "active_partner", "declined", "closed"],
     contacts: ["new", "in_progress", "resolved", "closed"],
+    partner_inquiries: ["new", "under_review", "contacted", "qualified", "converted", "closed"],
+    support_interests: ["new", "under_review", "contacted", "active", "closed"],
   };
 
   const handleSave = async () => {
@@ -132,22 +136,28 @@ export default function AdminDashboard() {
   const [referrals, setReferrals] = useState([]);
   const [employers, setEmployers] = useState([]);
   const [contacts, setContacts] = useState([]);
+  const [partnerInquiries, setPartnerInquiries] = useState([]);
+  const [supportInterests, setSupportInterests] = useState([]);
   const [selected, setSelected] = useState(null);
   const [selectedType, setSelectedType] = useState("");
   const [loading, setLoading] = useState(true);
 
   const loadData = async () => {
     setLoading(true);
-    const [i, r, e, c] = await Promise.all([
+    const [i, r, e, c, p, s] = await Promise.all([
       base44.entities.WebsiteIntake.list("-created_date", 100),
       base44.entities.PartnerReferral.list("-created_date", 100),
       base44.entities.EmployerInquiry.list("-created_date", 100),
       base44.entities.ContactSubmission.list("-created_date", 100),
+      base44.entities.WebsitePartnerInquiry.list("-created_date", 100),
+      base44.entities.WebsiteSupportInterest.list("-created_date", 100),
     ]);
     setIntakes(i);
     setReferrals(r);
     setEmployers(e);
     setContacts(c);
+    setPartnerInquiries(p);
+    setSupportInterests(s);
     setLoading(false);
   };
 
@@ -184,6 +194,8 @@ export default function AdminDashboard() {
     { id: "intakes", label: "Intakes", icon: ClipboardList, data: intakes, pending: countPending(intakes) },
     { id: "referrals", label: "Referrals", icon: Users, data: referrals, pending: countPending(referrals) },
     { id: "employers", label: "Employers", icon: Briefcase, data: employers, pending: countPending(employers) },
+    { id: "partner_inquiries", label: "Partners", icon: Building2, data: partnerInquiries, pending: countPending(partnerInquiries, "new") },
+    { id: "support_interests", label: "Volunteers", icon: HandHelping, data: supportInterests, pending: countPending(supportInterests, "new") },
     { id: "contacts", label: "Contacts", icon: Mail, data: contacts, pending: countPending(contacts, "new") },
   ];
 
