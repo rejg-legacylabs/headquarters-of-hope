@@ -8,8 +8,8 @@ import { Label } from "@/components/ui/label";
 import { Textarea } from "@/components/ui/textarea";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 import { Checkbox } from "@/components/ui/checkbox";
-import { base44 } from "@/api/base44Client";
 import { generateRefId } from "../lib/generateRefId";
+import { invokeHubFunction } from "@/lib/hubClient";
 import { ArrowRight, Users, Award, Heart, TrendingUp, Shield, Briefcase } from "lucide-react";
 
 const interestOptions = ["Hire Participants", "Mentorship", "Job Shadowing", "Internships", "Training Partnership", "Financial Support", "Other"];
@@ -65,8 +65,8 @@ export default function Employers() {
       };
       console.log("📤 Payload sent:", payload);
       
-      const response = await base44.functions.invoke("processIntakeSubmission", payload);
-      console.log("✅ Function successfully called - Response:", response.data);
+      const response = await invokeHubFunction("processIntakeSubmission", payload);
+      console.log("✅ Hub confirmed creation - Response:", response.data);
       
       const reference_id = response.data?.reference_id || generateRefId("EMP");
       setRefId(reference_id);

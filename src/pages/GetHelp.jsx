@@ -7,8 +7,8 @@ import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Textarea } from "@/components/ui/textarea";
 import { Checkbox } from "@/components/ui/checkbox";
-import { base44 } from "@/api/base44Client";
 import { generateRefId } from "../lib/generateRefId";
+import { invokeHubFunction } from "@/lib/hubClient";
 import { ArrowRight, Shield, AlertCircle } from "lucide-react";
 
 const needOptions = ["Employment", "Housing", "Life Skills", "Digital Literacy", "Transportation", "Document Assistance", "Reentry Support", "Other"];
@@ -52,16 +52,16 @@ export default function GetHelp() {
         source: "website",
       };
       
-      console.log("📤 Submitting payload:", payload);
+      console.log("📤 Submitting to Hub:", payload);
       
-      const response = await base44.functions.invoke("processIntakeSubmission", payload);
-      console.log("✅ Response received:", response.data);
+      const response = await invokeHubFunction("processIntakeSubmission", payload);
+      console.log("✅ Hub confirmed creation:", response.data);
       
       const reference_id = response.data?.reference_id || generateRefId("INT");
       setRefId(reference_id);
       setSubmitted(true);
     } catch (error) {
-      console.error("❌ Submission error:", error);
+      console.error("❌ Hub submission failed:", error);
       const errorMsg = error.response?.data?.error || error.message || "Unknown error occurred";
       alert(`Submission failed: ${errorMsg}`);
     } finally {

@@ -8,8 +8,9 @@ import { Label } from "@/components/ui/label";
 import { Textarea } from "@/components/ui/textarea";
 import { Checkbox } from "@/components/ui/checkbox";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
-import { base44 } from "@/api/base44Client";
 import { generateRefId } from "../lib/generateRefId";
+import { invokeHubFunction } from "@/lib/hubClient";
+import { base44 } from "@/api/base44Client";
 import { useState } from "react";
 import { Users, HandHelping, Megaphone, Gift, ArrowRight, DollarSign } from "lucide-react";
 
@@ -84,8 +85,9 @@ export default function Support() {
       console.log("📤 Payload sent:", payload);
       
       const reference_id = generateRefId("SUP");
-      const response = await base44.entities.WebsiteSupportInterest.create({ ...payload, reference_id });
-      console.log("✅ Function successfully called - Response:", response);
+      // Support interest is local-only, store locally
+      await base44.entities.WebsiteSupportInterest.create({ ...payload, reference_id });
+      console.log("✅ Local record created - Response:", reference_id);
       
       setRefId(reference_id);
       setSubmitted(true);

@@ -9,8 +9,8 @@ import { Textarea } from "@/components/ui/textarea";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 import { Checkbox } from "@/components/ui/checkbox";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
-import { base44 } from "@/api/base44Client";
 import { generateRefId } from "../lib/generateRefId";
+import { invokeHubFunction } from "@/lib/hubClient";
 import { Users, ClipboardCheck, ArrowRight, Phone, CheckCircle, Building2 } from "lucide-react";
 
 const orgTypes = ["Probation/Parole", "Community Organization", "Nonprofit", "Workforce Agency", "Church/Faith-Based", "Reentry Organization", "Government Agency", "Other"];
@@ -64,8 +64,8 @@ function ReferralForm() {
       };
       console.log("📤 Payload sent:", payload);
       
-      const response = await base44.functions.invoke("processIntakeSubmission", payload);
-      console.log("✅ Function successfully called - Response:", response.data);
+      const response = await invokeHubFunction("processIntakeSubmission", payload);
+      console.log("✅ Hub confirmed creation - Response:", response.data);
       
       const reference_id = response.data?.reference_id || generateRefId("REF");
       setRefId(reference_id);
@@ -186,10 +186,21 @@ function PartnershipForm() {
       console.log("📤 Payload sent:", payload);
       
       const reference_id = generateRefId("PTR");
-      const response = await base44.entities.WebsitePartnerInquiry.create({ ...payload, reference_id });
-      console.log("✅ Function successfully called - Response:", response);
+      // Partnership inquiry goes to Hub as well
+      const response = await invokeHubFunction("processIntakeSubmission", {
+        type: "resource_provider",
+        organization_name: payload.organization_name,
+        contact_name: payload.contact_name,
+        contact_email: payload.contact_email,
+        contact_phone: payload.contact_phone,
+        services_offered: payload.how_they_want_to_help,
+        service_area: payload.service_area,
+        notes: payload.notes,
+        source: "website_public",
+      });
+      console.log("✅ Hub confirmed creation - Response:", response.data);
       
-      setRefId(reference_id);
+      setRefId(response.data?.reference_id || reference_id);
       setSubmitted(true);
     } catch (error) {
       console.error("❌ Function call failed:", error);
