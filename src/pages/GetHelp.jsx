@@ -41,22 +41,29 @@ export default function GetHelp() {
     try {
       const payload = {
         type: "resident_application",
-        first_name: form.first_name,
-        last_name: form.last_name,
-        dob: form.date_of_birth,
-        phone: form.phone,
-        email: form.email,
+        first_name: form.first_name.trim(),
+        last_name: form.last_name.trim(),
+        dob: form.date_of_birth || "",
+        phone: form.phone.trim(),
+        email: form.email.trim(),
         housing_status: form.housing_need ? "seeking" : "unknown",
         employment_status: form.employment_need ? "seeking" : "unknown",
         notes: `Current situation: ${form.current_situation}\nNeeds: ${form.primary_needs.join(", ")}\nAdditional: ${form.notes}`,
         source: "website",
       };
+      
+      console.log("📤 Submitting payload:", payload);
+      
       const response = await base44.functions.invoke("processIntakeSubmission", payload);
+      console.log("✅ Response received:", response.data);
+      
       const reference_id = response.data?.reference_id || generateRefId("INT");
       setRefId(reference_id);
       setSubmitted(true);
     } catch (error) {
-      alert(`Submission failed: ${error.message}`);
+      console.error("❌ Submission error:", error);
+      const errorMsg = error.response?.data?.error || error.message || "Unknown error occurred";
+      alert(`Submission failed: ${errorMsg}`);
     } finally {
       setLoading(false);
     }

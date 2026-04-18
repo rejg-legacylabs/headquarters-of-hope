@@ -3,10 +3,13 @@ import { createClientFromRequest } from 'npm:@base44/sdk@0.8.25';
 Deno.serve(async (req) => {
   try {
     const base44 = createClientFromRequest(req);
-    const user = await base44.auth.me();
-
-    if (!user) {
-      return Response.json({ error: 'Unauthorized' }, { status: 401 });
+    
+    // Try to get authenticated user (optional for public forms)
+    let user = null;
+    try {
+      user = await base44.auth.me();
+    } catch (e) {
+      // Public submission — no auth required
     }
 
     const payload = await req.json();
@@ -56,12 +59,12 @@ async function processResidentApplication(base44, payload, timestamp) {
     first_name, last_name, dob, phone, email, housing_status, employment_status, notes, source
   } = payload;
 
-  // Validate required fields
-  if (!first_name || !last_name) {
-    throw new Error('Missing required fields: first_name, last_name');
+  // Validate required fields with better error messages
+  if (!first_name?.trim() || !last_name?.trim()) {
+    throw new Error('First name and last name are required');
   }
-  if (!phone && !email) {
-    throw new Error('At least one contact method required: phone or email');
+  if (!phone?.trim() && !email?.trim()) {
+    throw new Error('At least one contact method (phone or email) is required');
   }
 
   // Create WebsiteIntake record
@@ -100,14 +103,14 @@ async function processPartnerReferral(base44, payload, timestamp) {
   } = payload;
 
   // Validate required fields
-  if (!partner_name || !partner_organization) {
-    throw new Error('Missing required fields: partner_name, partner_organization');
+  if (!partner_name?.trim() || !partner_organization?.trim()) {
+    throw new Error('Partner name and organization are required');
   }
-  if (!resident_first_name || !resident_last_name) {
-    throw new Error('Missing required fields: resident_first_name, resident_last_name');
+  if (!resident_first_name?.trim() || !resident_last_name?.trim()) {
+    throw new Error('Participant first name and last name are required');
   }
-  if (!partner_email && !partner_phone) {
-    throw new Error('At least one partner contact method required: partner_email or partner_phone');
+  if (!partner_email?.trim() && !partner_phone?.trim()) {
+    throw new Error('At least one partner contact method (email or phone) is required');
   }
 
   // Create PartnerReferral record
@@ -142,11 +145,11 @@ async function processEmployerIntake(base44, payload, timestamp) {
   } = payload;
 
   // Validate required fields
-  if (!company_name || !contact_name) {
-    throw new Error('Missing required fields: company_name, contact_name');
+  if (!company_name?.trim() || !contact_name?.trim()) {
+    throw new Error('Company name and contact name are required');
   }
-  if (!contact_email && !contact_phone) {
-    throw new Error('At least one contact method required: contact_email or contact_phone');
+  if (!contact_email?.trim() && !contact_phone?.trim()) {
+    throw new Error('At least one contact method (email or phone) is required');
   }
 
   // Create EmployerInquiry record
@@ -179,11 +182,11 @@ async function processResourceProvider(base44, payload, timestamp) {
   } = payload;
 
   // Validate required fields
-  if (!organization_name || !contact_name) {
-    throw new Error('Missing required fields: organization_name, contact_name');
+  if (!organization_name?.trim() || !contact_name?.trim()) {
+    throw new Error('Organization name and contact name are required');
   }
-  if (!contact_email && !contact_phone) {
-    throw new Error('At least one contact method required: contact_email or contact_phone');
+  if (!contact_email?.trim() && !contact_phone?.trim()) {
+    throw new Error('At least one contact method (email or phone) is required');
   }
 
   // Create WebsitePartnerInquiry record
