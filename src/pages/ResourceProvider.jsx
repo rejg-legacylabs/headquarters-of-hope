@@ -38,24 +38,26 @@ export default function ResourceProvider() {
     console.log("🏢 FORM SUBMITTED - Resource Provider");
     try {
       const payload = {
-        type: "resource_provider",
         source_type: "resource_provider",
-        organization_name: form.organization_name.trim(),
-        contact_name: form.contact_name.trim(),
-        contact_email: form.contact_email.trim(),
-        contact_phone: form.contact_phone.trim(),
-        services_offered: form.services_offered.trim(),
-        service_area: form.service_area.trim(),
-        notes: form.notes.trim(),
-        source: "website_provider",
+        data: {
+          provider_name: form.organization_name.trim(),
+          provider_type: "",
+          contact_name: form.contact_name.trim(),
+          contact_email: form.contact_email.trim(),
+          contact_phone: form.contact_phone.trim(),
+          address: "",
+          services_offered: form.services_offered.trim(),
+          notes: form.notes.trim(),
+        },
+        organization_id: "org1",
       };
       console.log("📤 Resource Provider Payload sent:");
       console.log("  source_type:", payload.source_type);
-      console.log("  type:", payload.type);
-      console.log("  Full payload:", payload);
+      console.log("  Full payload:", JSON.stringify(payload, null, 2));
 
       const response = await invokeHubFunction("processIntakeSubmission", payload);
-      console.log("✅ Hub confirmed creation - Response:", response.data);
+      console.log("✅ Hub response:", response.data);
+      console.log("  received_by_hub:", response.data?.received_by_hub);
 
       const reference_id = response.data?.reference_id || generateRefId("PROV");
       setRefId(reference_id);

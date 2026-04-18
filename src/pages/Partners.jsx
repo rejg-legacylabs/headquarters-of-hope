@@ -49,27 +49,23 @@ function ReferralForm() {
     console.log("👥 FORM SUBMITTED - Partner Referral");
     try {
       const payload = {
-        type: "partner_referral",
         source_type: "partner_referral",
-        partner_name: form.referrer_name.trim(),
-        partner_organization: form.referrer_organization.trim(),
-        partner_email: form.referrer_email.trim(),
-        partner_phone: form.referrer_phone.trim(),
-        resident_first_name: form.participant_first_name.trim(),
-        resident_last_name: form.participant_last_name.trim(),
-        resident_dob: form.participant_dob || "",
-        resident_phone: form.participant_phone.trim(),
-        resident_email: form.participant_email.trim(),
-        referral_notes: `Reason: ${form.reason_for_referral}\nNeeds: ${form.primary_needs.join(", ")}\nUrgency: ${form.urgency}\nNotes: ${form.additional_notes}`,
-        source: "website_partner_referral",
+        data: {
+          resident_name: `${form.participant_first_name.trim()} ${form.participant_last_name.trim()}`,
+          partner_name: form.referrer_name.trim(),
+          resident_phone: form.participant_phone.trim(),
+          resident_email: form.participant_email.trim(),
+          notes: `Referring Organization: ${form.referrer_organization}\nReferrer: ${form.referrer_name}\nReason: ${form.reason_for_referral}\nNeeds: ${form.primary_needs.join(", ")}\nUrgency: ${form.urgency}\n${form.additional_notes}`,
+        },
+        organization_id: "org1",
       };
       console.log("📤 Partner Referral Payload sent:");
       console.log("  source_type:", payload.source_type);
-      console.log("  type:", payload.type);
-      console.log("  Full payload:", payload);
+      console.log("  Full payload:", JSON.stringify(payload, null, 2));
 
       const response = await invokeHubFunction("processIntakeSubmission", payload);
-      console.log("✅ Hub confirmed creation - Response:", response.data);
+      console.log("✅ Hub response:", response.data);
+      console.log("  received_by_hub:", response.data?.received_by_hub);
 
       const reference_id = response.data?.reference_id || generateRefId("REF");
       setRefId(reference_id);
@@ -179,26 +175,27 @@ function PartnershipForm() {
     console.log("🏢 FORM SUBMITTED - Partnership Inquiry");
     try {
       const reference_id = generateRefId("PTR");
-      // Partnership inquiry goes to Hub as well
       const payload = {
-        type: "resource_provider",
         source_type: "resource_provider",
-        organization_name: form.organization_name.trim(),
-        contact_name: form.contact_name.trim(),
-        contact_email: form.contact_email.trim(),
-        contact_phone: form.contact_phone.trim(),
-        services_offered: form.how_they_want_to_help,
-        service_area: form.service_area,
-        notes: form.notes,
-        source: "website_public",
+        data: {
+          provider_name: form.organization_name.trim(),
+          provider_type: form.organization_type || "",
+          contact_name: form.contact_name.trim(),
+          contact_email: form.contact_email.trim(),
+          contact_phone: form.contact_phone.trim(),
+          address: "",
+          services_offered: form.how_they_want_to_help,
+          notes: `Service Area: ${form.service_area}\n${form.notes}`,
+        },
+        organization_id: "org1",
       };
       console.log("📤 Partnership Inquiry Payload sent:");
       console.log("  source_type:", payload.source_type);
-      console.log("  type:", payload.type);
-      console.log("  Full payload:", payload);
+      console.log("  Full payload:", JSON.stringify(payload, null, 2));
 
       const response = await invokeHubFunction("processIntakeSubmission", payload);
-      console.log("✅ Hub confirmed creation - Response:", response.data);
+      console.log("✅ Hub response:", response.data);
+      console.log("  received_by_hub:", response.data?.received_by_hub);
 
       setRefId(response.data?.reference_id || reference_id);
       setSubmitted(true);

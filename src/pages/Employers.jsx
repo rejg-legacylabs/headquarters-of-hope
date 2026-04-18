@@ -51,26 +51,35 @@ export default function Employers() {
     console.log("🏭 FORM SUBMITTED - Employer Intake");
     try {
       const payload = {
-        type: "employer_intake",
         source_type: "employer_intake",
-        company_name: form.company_name.trim(),
-        contact_name: form.contact_name.trim(),
-        contact_email: form.contact_email.trim(),
-        contact_phone: form.contact_phone.trim(),
-        job_title: form.positions_available.trim(),
-        job_description: form.additional_notes.trim(),
-        job_type: form.interest_type.join(", "),
-        pay_range: "",
-        location: "",
-        source: "website_employer",
+        data: {
+          company_name: form.company_name.trim(),
+          contact_name: form.contact_name.trim(),
+          contact_email: form.contact_email.trim(),
+          contact_phone: form.contact_phone.trim(),
+          address: "",
+          city: "",
+          state: "",
+          industry: form.industry.trim(),
+          website: "",
+          hiring_preferences: form.interest_type.join(", "),
+          second_chance_friendly: form.second_chance_friendly,
+          veteran_friendly: false,
+          job_title: form.positions_available.trim(),
+          job_description: form.additional_notes.trim(),
+          job_location: "",
+          employment_type: "",
+          salary_range: "",
+        },
+        organization_id: "org1",
       };
       console.log("📤 Employer Intake Payload sent:");
       console.log("  source_type:", payload.source_type);
-      console.log("  type:", payload.type);
-      console.log("  Full payload:", payload);
+      console.log("  Full payload:", JSON.stringify(payload, null, 2));
 
       const response = await invokeHubFunction("processIntakeSubmission", payload);
-      console.log("✅ Hub confirmed creation - Response:", response.data);
+      console.log("✅ Hub response:", response.data);
+      console.log("  received_by_hub:", response.data?.received_by_hub);
 
       const reference_id = response.data?.reference_id || generateRefId("EMP");
       setRefId(reference_id);

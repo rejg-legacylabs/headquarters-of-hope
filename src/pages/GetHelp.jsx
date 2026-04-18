@@ -40,26 +40,29 @@ export default function GetHelp() {
     setLoading(true);
     try {
       const payload = {
-        type: "resident_application",
         source_type: "website_application",
-        first_name: form.first_name.trim(),
-        last_name: form.last_name.trim(),
-        dob: form.date_of_birth || "",
-        phone: form.phone.trim(),
-        email: form.email.trim(),
-        housing_status: form.housing_need ? "seeking" : "unknown",
-        employment_status: form.employment_need ? "seeking" : "unknown",
-        notes: `Current situation: ${form.current_situation}\nNeeds: ${form.primary_needs.join(", ")}\nAdditional: ${form.notes}`,
-        source: "website",
+        data: {
+          first_name: form.first_name.trim(),
+          last_name: form.last_name.trim(),
+          email: form.email.trim(),
+          phone: form.phone.trim(),
+          preferred_name: form.preferred_name?.trim() || "",
+          date_of_birth: form.date_of_birth || "",
+          primary_language: "",
+          population: "",
+          notes: `Current situation: ${form.current_situation}\nNeeds: ${form.primary_needs.join(", ")}\nAdditional: ${form.notes}`,
+        },
+        organization_id: "org1",
       };
       
       console.log("📤 GetHelp Form Submission:");
       console.log("  source_type:", payload.source_type);
-      console.log("  type:", payload.type);
-      console.log("  Full payload:", payload);
+      console.log("  Full payload:", JSON.stringify(payload, null, 2));
       
       const response = await invokeHubFunction("processIntakeSubmission", payload);
-      console.log("✅ Hub confirmed creation:", response.data);
+      console.log("✅ Hub response:", response.data);
+      console.log("  received_by_hub:", response.data?.received_by_hub);
+      console.log("  reference_id:", response.data?.reference_id);
       
       const reference_id = response.data?.reference_id || generateRefId("INT");
       setRefId(reference_id);

@@ -72,25 +72,27 @@ export default function Transportation() {
     console.log("🚗 FORM SUBMITTED - Transportation Request");
     try {
       const payload = {
-        type: "resident_application",
         source_type: "website_application",
-        first_name: form.first_name.trim(),
-        last_name: form.last_name.trim(),
-        dob: "",
-        phone: form.phone.trim(),
-        email: form.email.trim(),
-        housing_status: "unknown",
-        employment_status: "unknown",
-        notes: `TRANSPORTATION REQUEST\nPurpose: ${form.ride_purpose}\nPickup: ${form.pickup_location}\nDestination: ${form.destination}\nDate: ${form.appointment_date}\nReferred by: ${form.referring_org || "Self"}\nAdditional notes: ${form.additional_notes}`,
-        source: "website_transportation",
+        data: {
+          first_name: form.first_name.trim(),
+          last_name: form.last_name.trim(),
+          email: form.email.trim(),
+          phone: form.phone.trim(),
+          preferred_name: "",
+          date_of_birth: "",
+          primary_language: "",
+          population: "",
+          notes: `TRANSPORTATION REQUEST\nPurpose: ${form.ride_purpose}\nPickup: ${form.pickup_location}\nDestination: ${form.destination}\nDate: ${form.appointment_date}\nReferred by: ${form.referring_org || "Self"}\nAdditional notes: ${form.additional_notes}`,
+        },
+        organization_id: "org1",
       };
       console.log("📤 Transportation Request Payload sent:");
       console.log("  source_type:", payload.source_type);
-      console.log("  type:", payload.type);
-      console.log("  Full payload:", payload);
+      console.log("  Full payload:", JSON.stringify(payload, null, 2));
 
       const response = await invokeHubFunction("processIntakeSubmission", payload);
-      console.log("✅ Hub confirmed creation - Response:", response.data);
+      console.log("✅ Hub response:", response.data);
+      console.log("  received_by_hub:", response.data?.received_by_hub);
 
       const reference_id = response.data?.reference_id || generateRefId("TRN");
       setRefId(reference_id);
