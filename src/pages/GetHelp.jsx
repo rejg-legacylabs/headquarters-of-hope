@@ -9,7 +9,7 @@ import { Textarea } from "@/components/ui/textarea";
 import { Checkbox } from "@/components/ui/checkbox";
 import { base44 } from "@/api/base44Client";
 import { generateRefId } from "../lib/generateRefId";
-import { ArrowRight, Shield } from "lucide-react";
+import { ArrowRight, Shield, AlertCircle } from "lucide-react";
 
 const needOptions = ["Employment", "Housing", "Life Skills", "Digital Literacy", "Transportation", "Document Assistance", "Reentry Support", "Other"];
 
@@ -38,16 +38,28 @@ export default function GetHelp() {
   const handleSubmit = async (e) => {
     e.preventDefault();
     setLoading(true);
-    const reference_id = generateRefId("INT");
-    await base44.entities.WebsiteIntake.create({
-      ...form,
-      reference_id,
-      source: "website_public",
-      status: "pending_review",
-    });
-    setRefId(reference_id);
-    setSubmitted(true);
-    setLoading(false);
+    try {
+      const payload = {
+        type: "resident_application",
+        first_name: form.first_name,
+        last_name: form.last_name,
+        dob: form.date_of_birth,
+        phone: form.phone,
+        email: form.email,
+        housing_status: form.housing_need ? "seeking" : "unknown",
+        employment_status: form.employment_need ? "seeking" : "unknown",
+        notes: `Current situation: ${form.current_situation}\nNeeds: ${form.primary_needs.join(", ")}\nAdditional: ${form.notes}`,
+        source: "website",
+      };
+      const response = await base44.functions.invoke("processIntakeSubmission", payload);
+      const reference_id = response.data?.reference_id || generateRefId("INT");
+      setRefId(reference_id);
+      setSubmitted(true);
+    } catch (error) {
+      alert(`Submission failed: ${error.message}`);
+    } finally {
+      setLoading(false);
+    }
   };
 
   return (

@@ -32,7 +32,7 @@ function ReferralForm() {
   const [loading, setLoading] = useState(false);
   const [form, setForm] = useState({
     referrer_name: "", referrer_organization: "", referrer_email: "", referrer_phone: "", referrer_role: "",
-    organization_type: "", participant_first_name: "", participant_last_name: "", participant_phone: "",
+    organization_type: "", participant_first_name: "", participant_last_name: "", participant_dob: "", participant_phone: "",
     participant_email: "", reason_for_referral: "", primary_needs: [], urgency: "Standard", additional_notes: "",
     consent_obtained: false,
   });
@@ -46,11 +46,30 @@ function ReferralForm() {
   const handleSubmit = async (e) => {
     e.preventDefault();
     setLoading(true);
-    const reference_id = generateRefId("REF");
-    await base44.entities.PartnerReferral.create({ ...form, reference_id, source: "website_public", status: "pending_review" });
-    setRefId(reference_id);
-    setSubmitted(true);
-    setLoading(false);
+    try {
+      const payload = {
+        type: "partner_referral",
+        partner_name: form.referrer_name,
+        partner_organization: form.referrer_organization,
+        partner_email: form.referrer_email,
+        partner_phone: form.referrer_phone,
+        resident_first_name: form.participant_first_name,
+        resident_last_name: form.participant_last_name,
+        resident_dob: form.participant_dob || "",
+        resident_phone: form.participant_phone,
+        resident_email: form.participant_email,
+        referral_notes: `Reason: ${form.reason_for_referral}\nNeeds: ${form.primary_needs.join(", ")}\nUrgency: ${form.urgency}\nNotes: ${form.additional_notes}`,
+        source: "website_partner_referral",
+      };
+      const response = await base44.functions.invoke("processIntakeSubmission", payload);
+      const reference_id = response.data?.reference_id || generateRefId("REF");
+      setRefId(reference_id);
+      setSubmitted(true);
+    } catch (error) {
+      alert(`Referral failed: ${error.message}`);
+    } finally {
+      setLoading(false);
+    }
   };
 
   if (submitted) return <FormSuccess title="Referral Submitted Successfully" message="Thank you for your referral. Our team will review the submission and reach out to the participant within 2-3 business days." referenceId={refId} />;
@@ -80,6 +99,7 @@ function ReferralForm() {
         <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
           <div><Label>First Name *</Label><Input required value={form.participant_first_name} onChange={(e) => updateField("participant_first_name", e.target.value)} /></div>
           <div><Label>Last Name *</Label><Input required value={form.participant_last_name} onChange={(e) => updateField("participant_last_name", e.target.value)} /></div>
+          <div><Label>Date of Birth</Label><Input type="date" value={form.participant_dob} onChange={(e) => updateField("participant_dob", e.target.value)} /></div>
           <div><Label>Phone</Label><Input value={form.participant_phone} onChange={(e) => updateField("participant_phone", e.target.value)} /></div>
           <div><Label>Email</Label><Input value={form.participant_email} onChange={(e) => updateField("participant_email", e.target.value)} /></div>
         </div>

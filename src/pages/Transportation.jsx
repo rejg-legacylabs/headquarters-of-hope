@@ -69,24 +69,28 @@ export default function Transportation() {
   const handleSubmit = async (e) => {
     e.preventDefault();
     setLoading(true);
-    const reference_id = generateRefId("TRN");
-    // Store as a WebsiteIntake record with transportation flag
-    await base44.entities.WebsiteIntake.create({
-      first_name: form.first_name,
-      last_name: form.last_name,
-      phone: form.phone,
-      email: form.email,
-      notes: `TRANSPORTATION REQUEST\nPurpose: ${form.ride_purpose}\nPickup: ${form.pickup_location}\nDestination: ${form.destination}\nDate: ${form.appointment_date}\nReferred by: ${form.referring_org || "Self"}\nNotes: ${form.additional_notes}`,
-      primary_needs: ["Transportation"],
-      transportation_barrier: true,
-      consent_to_contact: form.consent_to_contact,
-      reference_id,
-      source: "website_transportation",
-      status: "pending_review",
-    });
-    setRefId(reference_id);
-    setSubmitted(true);
-    setLoading(false);
+    try {
+      const payload = {
+        type: "resident_application",
+        first_name: form.first_name,
+        last_name: form.last_name,
+        dob: "",
+        phone: form.phone,
+        email: form.email,
+        housing_status: "unknown",
+        employment_status: "unknown",
+        notes: `TRANSPORTATION REQUEST\nPurpose: ${form.ride_purpose}\nPickup: ${form.pickup_location}\nDestination: ${form.destination}\nDate: ${form.appointment_date}\nReferred by: ${form.referring_org || "Self"}\nAdditional notes: ${form.additional_notes}`,
+        source: "website_transportation",
+      };
+      const response = await base44.functions.invoke("processIntakeSubmission", payload);
+      const reference_id = response.data?.reference_id || generateRefId("TRN");
+      setRefId(reference_id);
+      setSubmitted(true);
+    } catch (error) {
+      alert(`Submission failed: ${error.message}`);
+    } finally {
+      setLoading(false);
+    }
   };
 
   return (

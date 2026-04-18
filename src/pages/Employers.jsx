@@ -48,16 +48,29 @@ export default function Employers() {
   const handleSubmit = async (e) => {
     e.preventDefault();
     setLoading(true);
-    const reference_id = generateRefId("EMP");
-    await base44.entities.EmployerInquiry.create({
-      ...form,
-      reference_id,
-      source: "website_public",
-      status: "pending_review",
-    });
-    setRefId(reference_id);
-    setSubmitted(true);
-    setLoading(false);
+    try {
+      const payload = {
+        type: "employer_intake",
+        company_name: form.company_name,
+        contact_name: form.contact_name,
+        contact_email: form.contact_email,
+        contact_phone: form.contact_phone,
+        job_title: form.positions_available,
+        job_description: form.additional_notes,
+        job_type: form.interest_type.join(", "),
+        pay_range: "",
+        location: "",
+        source: "website_employer",
+      };
+      const response = await base44.functions.invoke("processIntakeSubmission", payload);
+      const reference_id = response.data?.reference_id || generateRefId("EMP");
+      setRefId(reference_id);
+      setSubmitted(true);
+    } catch (error) {
+      alert(`Submission failed: ${error.message}`);
+    } finally {
+      setLoading(false);
+    }
   };
 
   return (

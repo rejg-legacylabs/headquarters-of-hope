@@ -20,6 +20,7 @@ import Support from './pages/Support';
 import FAQ from './pages/FAQ';
 import Transportation from './pages/Transportation';
 import Funding from './pages/Funding';
+import ResourceProvider from './pages/ResourceProvider';
 import AdminDashboard from './pages/admin/AdminDashboard';
 
 const AuthenticatedApp = () => {
@@ -63,6 +64,7 @@ const AuthenticatedApp = () => {
         <Route path="/faq" element={<FAQ />} />
         <Route path="/transportation" element={<Transportation />} />
         <Route path="/funding" element={<Funding />} />
+        <Route path="/resource-provider" element={<ResourceProvider />} />
       </Route>
       <Route path="/admin" element={<AdminDashboard />} />
       <Route path="*" element={<PageNotFound />} />
