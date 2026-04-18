@@ -52,7 +52,9 @@ export default function GetHelp() {
         source: "website",
       };
       
-      console.log("📤 Submitting to Hub:", payload);
+      console.log("📤 Form Submission Debug:");
+      console.log("  Payload:", payload);
+      console.log("  Routing to Hub via invokeHubFunction...");
       
       const response = await invokeHubFunction("processIntakeSubmission", payload);
       console.log("✅ Hub confirmed creation:", response.data);
