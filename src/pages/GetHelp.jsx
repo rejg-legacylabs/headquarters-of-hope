@@ -41,6 +41,7 @@ export default function GetHelp() {
     try {
       const payload = {
         type: "resident_application",
+        source_type: "website_application",
         first_name: form.first_name.trim(),
         last_name: form.last_name.trim(),
         dob: form.date_of_birth || "",
@@ -52,9 +53,10 @@ export default function GetHelp() {
         source: "website",
       };
       
-      console.log("📤 Form Submission Debug:");
-      console.log("  Payload:", payload);
-      console.log("  Routing to Hub via invokeHubFunction...");
+      console.log("📤 GetHelp Form Submission:");
+      console.log("  source_type:", payload.source_type);
+      console.log("  type:", payload.type);
+      console.log("  Full payload:", payload);
       
       const response = await invokeHubFunction("processIntakeSubmission", payload);
       console.log("✅ Hub confirmed creation:", response.data);

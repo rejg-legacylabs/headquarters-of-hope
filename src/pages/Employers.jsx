@@ -52,6 +52,7 @@ export default function Employers() {
     try {
       const payload = {
         type: "employer_intake",
+        source_type: "employer_intake",
         company_name: form.company_name.trim(),
         contact_name: form.contact_name.trim(),
         contact_email: form.contact_email.trim(),
@@ -63,11 +64,14 @@ export default function Employers() {
         location: "",
         source: "website_employer",
       };
-      console.log("📤 Payload sent:", payload);
-      
+      console.log("📤 Employer Intake Payload sent:");
+      console.log("  source_type:", payload.source_type);
+      console.log("  type:", payload.type);
+      console.log("  Full payload:", payload);
+
       const response = await invokeHubFunction("processIntakeSubmission", payload);
       console.log("✅ Hub confirmed creation - Response:", response.data);
-      
+
       const reference_id = response.data?.reference_id || generateRefId("EMP");
       setRefId(reference_id);
       setSubmitted(true);

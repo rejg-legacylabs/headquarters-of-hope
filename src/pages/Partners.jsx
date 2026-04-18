@@ -50,6 +50,7 @@ function ReferralForm() {
     try {
       const payload = {
         type: "partner_referral",
+        source_type: "partner_referral",
         partner_name: form.referrer_name.trim(),
         partner_organization: form.referrer_organization.trim(),
         partner_email: form.referrer_email.trim(),
@@ -62,11 +63,14 @@ function ReferralForm() {
         referral_notes: `Reason: ${form.reason_for_referral}\nNeeds: ${form.primary_needs.join(", ")}\nUrgency: ${form.urgency}\nNotes: ${form.additional_notes}`,
         source: "website_partner_referral",
       };
-      console.log("📤 Payload sent:", payload);
-      
+      console.log("📤 Partner Referral Payload sent:");
+      console.log("  source_type:", payload.source_type);
+      console.log("  type:", payload.type);
+      console.log("  Full payload:", payload);
+
       const response = await invokeHubFunction("processIntakeSubmission", payload);
       console.log("✅ Hub confirmed creation - Response:", response.data);
-      
+
       const reference_id = response.data?.reference_id || generateRefId("REF");
       setRefId(reference_id);
       setSubmitted(true);
@@ -174,32 +178,28 @@ function PartnershipForm() {
     setLoading(true);
     console.log("🏢 FORM SUBMITTED - Partnership Inquiry");
     try {
+      const reference_id = generateRefId("PTR");
+      // Partnership inquiry goes to Hub as well
       const payload = {
-        ...form,
+        type: "resource_provider",
+        source_type: "resource_provider",
         organization_name: form.organization_name.trim(),
         contact_name: form.contact_name.trim(),
         contact_email: form.contact_email.trim(),
         contact_phone: form.contact_phone.trim(),
+        services_offered: form.how_they_want_to_help,
+        service_area: form.service_area,
+        notes: form.notes,
         source: "website_public",
-        status: "new",
       };
-      console.log("📤 Payload sent:", payload);
-      
-      const reference_id = generateRefId("PTR");
-      // Partnership inquiry goes to Hub as well
-      const response = await invokeHubFunction("processIntakeSubmission", {
-        type: "resource_provider",
-        organization_name: payload.organization_name,
-        contact_name: payload.contact_name,
-        contact_email: payload.contact_email,
-        contact_phone: payload.contact_phone,
-        services_offered: payload.how_they_want_to_help,
-        service_area: payload.service_area,
-        notes: payload.notes,
-        source: "website_public",
-      });
+      console.log("📤 Partnership Inquiry Payload sent:");
+      console.log("  source_type:", payload.source_type);
+      console.log("  type:", payload.type);
+      console.log("  Full payload:", payload);
+
+      const response = await invokeHubFunction("processIntakeSubmission", payload);
       console.log("✅ Hub confirmed creation - Response:", response.data);
-      
+
       setRefId(response.data?.reference_id || reference_id);
       setSubmitted(true);
     } catch (error) {

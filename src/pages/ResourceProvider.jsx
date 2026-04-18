@@ -6,7 +6,7 @@ import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Textarea } from "@/components/ui/textarea";
-import { base44 } from "@/api/base44Client";
+import { invokeHubFunction } from "@/lib/hubClient";
 import { generateRefId } from "../lib/generateRefId";
 import { ArrowRight, Building2, Handshake, Heart } from "lucide-react";
 
@@ -35,24 +35,36 @@ export default function ResourceProvider() {
   const handleSubmit = async (e) => {
     e.preventDefault();
     setLoading(true);
+    console.log("🏢 FORM SUBMITTED - Resource Provider");
     try {
       const payload = {
         type: "resource_provider",
-        organization_name: form.organization_name,
-        contact_name: form.contact_name,
-        contact_email: form.contact_email,
-        contact_phone: form.contact_phone,
-        services_offered: form.services_offered,
-        service_area: form.service_area,
-        notes: form.notes,
+        source_type: "resource_provider",
+        organization_name: form.organization_name.trim(),
+        contact_name: form.contact_name.trim(),
+        contact_email: form.contact_email.trim(),
+        contact_phone: form.contact_phone.trim(),
+        services_offered: form.services_offered.trim(),
+        service_area: form.service_area.trim(),
+        notes: form.notes.trim(),
         source: "website_provider",
       };
-      const response = await base44.functions.invoke("processIntakeSubmission", payload);
+      console.log("📤 Resource Provider Payload sent:");
+      console.log("  source_type:", payload.source_type);
+      console.log("  type:", payload.type);
+      console.log("  Full payload:", payload);
+
+      const response = await invokeHubFunction("processIntakeSubmission", payload);
+      console.log("✅ Hub confirmed creation - Response:", response.data);
+
       const reference_id = response.data?.reference_id || generateRefId("PROV");
       setRefId(reference_id);
       setSubmitted(true);
     } catch (error) {
-      alert(`Submission failed: ${error.message}`);
+      console.error("❌ Function call failed:", error);
+      const errorMsg = error.response?.data?.error || error.message || "Unknown error occurred";
+      console.error("📋 Error details:", errorMsg);
+      alert(`Submission failed: ${errorMsg}`);
     } finally {
       setLoading(false);
     }

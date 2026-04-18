@@ -73,6 +73,7 @@ export default function Transportation() {
     try {
       const payload = {
         type: "resident_application",
+        source_type: "website_application",
         first_name: form.first_name.trim(),
         last_name: form.last_name.trim(),
         dob: "",
@@ -83,11 +84,14 @@ export default function Transportation() {
         notes: `TRANSPORTATION REQUEST\nPurpose: ${form.ride_purpose}\nPickup: ${form.pickup_location}\nDestination: ${form.destination}\nDate: ${form.appointment_date}\nReferred by: ${form.referring_org || "Self"}\nAdditional notes: ${form.additional_notes}`,
         source: "website_transportation",
       };
-      console.log("📤 Payload sent:", payload);
-      
+      console.log("📤 Transportation Request Payload sent:");
+      console.log("  source_type:", payload.source_type);
+      console.log("  type:", payload.type);
+      console.log("  Full payload:", payload);
+
       const response = await invokeHubFunction("processIntakeSubmission", payload);
       console.log("✅ Hub confirmed creation - Response:", response.data);
-      
+
       const reference_id = response.data?.reference_id || generateRefId("TRN");
       setRefId(reference_id);
       setSubmitted(true);
