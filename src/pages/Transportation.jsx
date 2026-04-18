@@ -69,25 +69,33 @@ export default function Transportation() {
   const handleSubmit = async (e) => {
     e.preventDefault();
     setLoading(true);
+    console.log("🚗 FORM SUBMITTED - Transportation Request");
     try {
       const payload = {
         type: "resident_application",
-        first_name: form.first_name,
-        last_name: form.last_name,
+        first_name: form.first_name.trim(),
+        last_name: form.last_name.trim(),
         dob: "",
-        phone: form.phone,
-        email: form.email,
+        phone: form.phone.trim(),
+        email: form.email.trim(),
         housing_status: "unknown",
         employment_status: "unknown",
         notes: `TRANSPORTATION REQUEST\nPurpose: ${form.ride_purpose}\nPickup: ${form.pickup_location}\nDestination: ${form.destination}\nDate: ${form.appointment_date}\nReferred by: ${form.referring_org || "Self"}\nAdditional notes: ${form.additional_notes}`,
         source: "website_transportation",
       };
+      console.log("📤 Payload sent:", payload);
+      
       const response = await base44.functions.invoke("processIntakeSubmission", payload);
+      console.log("✅ Function successfully called - Response:", response.data);
+      
       const reference_id = response.data?.reference_id || generateRefId("TRN");
       setRefId(reference_id);
       setSubmitted(true);
     } catch (error) {
-      alert(`Submission failed: ${error.message}`);
+      console.error("❌ Function call failed:", error);
+      const errorMsg = error.response?.data?.error || error.message || "Unknown error occurred";
+      console.error("📋 Error details:", errorMsg);
+      alert(`Submission failed: ${errorMsg}`);
     } finally {
       setLoading(false);
     }

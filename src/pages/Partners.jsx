@@ -46,27 +46,35 @@ function ReferralForm() {
   const handleSubmit = async (e) => {
     e.preventDefault();
     setLoading(true);
+    console.log("👥 FORM SUBMITTED - Partner Referral");
     try {
       const payload = {
         type: "partner_referral",
-        partner_name: form.referrer_name,
-        partner_organization: form.referrer_organization,
-        partner_email: form.referrer_email,
-        partner_phone: form.referrer_phone,
-        resident_first_name: form.participant_first_name,
-        resident_last_name: form.participant_last_name,
+        partner_name: form.referrer_name.trim(),
+        partner_organization: form.referrer_organization.trim(),
+        partner_email: form.referrer_email.trim(),
+        partner_phone: form.referrer_phone.trim(),
+        resident_first_name: form.participant_first_name.trim(),
+        resident_last_name: form.participant_last_name.trim(),
         resident_dob: form.participant_dob || "",
-        resident_phone: form.participant_phone,
-        resident_email: form.participant_email,
+        resident_phone: form.participant_phone.trim(),
+        resident_email: form.participant_email.trim(),
         referral_notes: `Reason: ${form.reason_for_referral}\nNeeds: ${form.primary_needs.join(", ")}\nUrgency: ${form.urgency}\nNotes: ${form.additional_notes}`,
         source: "website_partner_referral",
       };
+      console.log("📤 Payload sent:", payload);
+      
       const response = await base44.functions.invoke("processIntakeSubmission", payload);
+      console.log("✅ Function successfully called - Response:", response.data);
+      
       const reference_id = response.data?.reference_id || generateRefId("REF");
       setRefId(reference_id);
       setSubmitted(true);
     } catch (error) {
-      alert(`Referral failed: ${error.message}`);
+      console.error("❌ Function call failed:", error);
+      const errorMsg = error.response?.data?.error || error.message || "Unknown error occurred";
+      console.error("📋 Error details:", errorMsg);
+      alert(`Referral failed: ${errorMsg}`);
     } finally {
       setLoading(false);
     }
@@ -164,11 +172,33 @@ function PartnershipForm() {
   const handleSubmit = async (e) => {
     e.preventDefault();
     setLoading(true);
-    const reference_id = generateRefId("PTR");
-    await base44.entities.WebsitePartnerInquiry.create({ ...form, reference_id, source: "website_public", status: "new" });
-    setRefId(reference_id);
-    setSubmitted(true);
-    setLoading(false);
+    console.log("🏢 FORM SUBMITTED - Partnership Inquiry");
+    try {
+      const payload = {
+        ...form,
+        organization_name: form.organization_name.trim(),
+        contact_name: form.contact_name.trim(),
+        contact_email: form.contact_email.trim(),
+        contact_phone: form.contact_phone.trim(),
+        source: "website_public",
+        status: "new",
+      };
+      console.log("📤 Payload sent:", payload);
+      
+      const reference_id = generateRefId("PTR");
+      const response = await base44.entities.WebsitePartnerInquiry.create({ ...payload, reference_id });
+      console.log("✅ Function successfully called - Response:", response);
+      
+      setRefId(reference_id);
+      setSubmitted(true);
+    } catch (error) {
+      console.error("❌ Function call failed:", error);
+      const errorMsg = error.response?.data?.error || error.message || "Unknown error occurred";
+      console.error("📋 Error details:", errorMsg);
+      alert(`Partnership inquiry failed: ${errorMsg}`);
+    } finally {
+      setLoading(false);
+    }
   };
 
   if (submitted) return <FormSuccess title="Partnership Inquiry Submitted" message="Thank you for your interest in partnering with us. Our team will review your inquiry and follow up within 3-5 business days." referenceId={refId} />;

@@ -48,26 +48,34 @@ export default function Employers() {
   const handleSubmit = async (e) => {
     e.preventDefault();
     setLoading(true);
+    console.log("🏭 FORM SUBMITTED - Employer Intake");
     try {
       const payload = {
         type: "employer_intake",
-        company_name: form.company_name,
-        contact_name: form.contact_name,
-        contact_email: form.contact_email,
-        contact_phone: form.contact_phone,
-        job_title: form.positions_available,
-        job_description: form.additional_notes,
+        company_name: form.company_name.trim(),
+        contact_name: form.contact_name.trim(),
+        contact_email: form.contact_email.trim(),
+        contact_phone: form.contact_phone.trim(),
+        job_title: form.positions_available.trim(),
+        job_description: form.additional_notes.trim(),
         job_type: form.interest_type.join(", "),
         pay_range: "",
         location: "",
         source: "website_employer",
       };
+      console.log("📤 Payload sent:", payload);
+      
       const response = await base44.functions.invoke("processIntakeSubmission", payload);
+      console.log("✅ Function successfully called - Response:", response.data);
+      
       const reference_id = response.data?.reference_id || generateRefId("EMP");
       setRefId(reference_id);
       setSubmitted(true);
     } catch (error) {
-      alert(`Submission failed: ${error.message}`);
+      console.error("❌ Function call failed:", error);
+      const errorMsg = error.response?.data?.error || error.message || "Unknown error occurred";
+      console.error("📋 Error details:", errorMsg);
+      alert(`Submission failed: ${errorMsg}`);
     } finally {
       setLoading(false);
     }

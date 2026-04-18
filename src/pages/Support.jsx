@@ -68,16 +68,35 @@ export default function Support() {
   const handleSubmit = async (e) => {
     e.preventDefault();
     setLoading(true);
-    const reference_id = generateRefId("SUP");
-    await base44.entities.WebsiteSupportInterest.create({
-      ...form,
-      reference_id,
-      source: "website_public",
-      status: "new",
-    });
-    setRefId(reference_id);
-    setSubmitted(true);
-    setLoading(false);
+    console.log("💪 FORM SUBMITTED - Support Interest");
+    try {
+      const payload = {
+        name: form.name.trim(),
+        email: form.email.trim(),
+        phone: form.phone.trim(),
+        organization: form.organization.trim(),
+        interest_type: form.interest_type,
+        availability: form.availability,
+        notes: form.notes.trim(),
+        source: "website_public",
+        status: "new",
+      };
+      console.log("📤 Payload sent:", payload);
+      
+      const reference_id = generateRefId("SUP");
+      const response = await base44.entities.WebsiteSupportInterest.create({ ...payload, reference_id });
+      console.log("✅ Function successfully called - Response:", response);
+      
+      setRefId(reference_id);
+      setSubmitted(true);
+    } catch (error) {
+      console.error("❌ Function call failed:", error);
+      const errorMsg = error.response?.data?.error || error.message || "Unknown error occurred";
+      console.error("📋 Error details:", errorMsg);
+      alert(`Submission failed: ${errorMsg}`);
+    } finally {
+      setLoading(false);
+    }
   };
 
   return (
