@@ -1,39 +1,37 @@
-**Welcome to your Base44 project** 
+# Headquarters of Hope — HOH Website
 
-**About**
+**Public-facing website for Headquarters of Hope Foundation, Inc.**
 
-View and Edit  your app on [Base44.com](http://Base44.com) 
+The HOH Website is the public digital presence for Headquarters of Hope Foundation — a Texas 501(c)(3) nonprofit providing drug- and alcohol-free transitional sober living homes serving justice-impacted individuals, turned-out foster youth, and homeless veterans.
 
-This project contains everything you need to run your app locally.
+## Organization Info
+- **Legal Name:** Headquarters of Hope Foundation, Inc.
+- **EIN:** 39-3366072
+- **Status:** Texas 501(c)(3) Nonprofit Corporation
+- **Executive Director:** Rodney E. Jones
+- **Email:** info@headquartersofhope.org
+- **Phone:** 512-770-5952
+- **Website:** headquartersofhope.org
 
-**Edit the code in your local development environment**
+## Platform Features
+- Public-facing mission and program information
+- Donor and volunteer engagement
+- Program referral intake (feeds into Pathways Hub OS)
+- Resource directory for residents and partners
+- News and impact reporting
 
-Any change pushed to the repo will also be reflected in the Base44 Builder.
+## Ecosystem Connection
+- Website leads → Pathways Hub OS (resident intake pipeline)
+- Donation processing → Command Center Finance
 
-**Prerequisites:** 
-
-1. Clone the repository using the project's Git URL 
-2. Navigate to the project directory
-3. Install dependencies: `npm install`
-4. Create an `.env.local` file and set the right environment variables
-
+## Development
+```bash
+git clone https://github.com/rejg-legacylabs/headquarters-of-hope
+cd headquarters-of-hope
+npm install
+cp .env.example .env.local
+npm run dev
 ```
-VITE_BASE44_APP_ID=your_app_id
-VITE_BASE44_APP_BASE_URL=your_backend_url
 
-e.g.
-VITE_BASE44_APP_ID=cbef744a8545c389ef439ea6
-VITE_BASE44_APP_BASE_URL=https://my-to-do-list-81bfaad7.base44.app
-```
-
-Run the app: `npm run dev`
-
-**Publish your changes**
-
-Open [Base44.com](http://Base44.com) and click on Publish.
-
-**Docs & Support**
-
-Documentation: [https://docs.base44.com/Integrations/Using-GitHub](https://docs.base44.com/Integrations/Using-GitHub)
-
-Support: [https://app.base44.com/support](https://app.base44.com/support)
+---
+Built on [Base44](https://base44.com) | Headquarters of Hope Foundation, Inc. | REJG Legacy Labs LLC | May 2026
