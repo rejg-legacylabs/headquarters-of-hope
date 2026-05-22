@@ -48,17 +48,17 @@ export default function Footer() {
               Rebuilding lives through structured opportunity, dignity, and long-term support. Every person deserves a pathway to stability.
             </p>
             <div className="space-y-2.5 text-sm text-white/70">
-              <div className="flex items-center gap-2.5">
+              <a href="tel:7372558355" className="flex items-center gap-2.5 hover:text-white transition-colors">
                 <Phone className="w-4 h-4 text-secondary" />
-                <span>(555) 123-4567</span>
-              </div>
-              <div className="flex items-center gap-2.5">
+                <span>737-255-8355</span>
+              </a>
+              <a href="mailto:info@headquartersofhope.org" className="flex items-center gap-2.5 hover:text-white transition-colors">
                 <Mail className="w-4 h-4 text-secondary" />
                 <span>info@headquartersofhope.org</span>
-              </div>
-              <div className="flex items-center gap-2.5">
-                <MapPin className="w-4 h-4 text-secondary" />
-                <span>Community Service Center</span>
+              </a>
+              <div className="flex items-start gap-2.5">
+                <MapPin className="w-4 h-4 text-secondary mt-0.5" />
+                <span>509 Sandstone Trail, Buda, TX 78610</span>
               </div>
             </div>
           </div>
@@ -114,7 +114,7 @@ export default function Footer() {
             &copy; {new Date().getFullYear()} Headquarters of Hope Foundation. All rights reserved.
           </p>
           <p className="text-xs text-white/50">
-            A 501(c)(3) Nonprofit Organization
+            A 501(c)(3) Nonprofit Organization &middot; EIN 39-3366072
           </p>
         </div>
       </div>

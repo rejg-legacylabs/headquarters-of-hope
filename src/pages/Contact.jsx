@@ -14,9 +14,9 @@ import { ArrowRight, Phone, Mail, MapPin, Clock } from "lucide-react";
 const inquiryTypes = ["Participant Help", "Partner Inquiry", "Employer Inquiry", "Volunteer Interest", "Donation Question", "General Contact"];
 
 const contactInfo = [
-  { icon: Phone, label: "Phone", value: "(555) 123-4567" },
+  { icon: Phone, label: "Phone", value: "737-255-8355" },
   { icon: Mail, label: "Email", value: "info@headquartersofhope.org" },
-  { icon: MapPin, label: "Location", value: "Community Service Center" },
+  { icon: MapPin, label: "Location", value: "509 Sandstone Trail, Buda, TX 78610" },
   { icon: Clock, label: "Hours", value: "Monday - Friday, 9:00 AM - 5:00 PM" },
 ];
 
