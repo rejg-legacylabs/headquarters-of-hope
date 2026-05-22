@@ -22,6 +22,7 @@ import Transportation from './pages/Transportation';
 import Funding from './pages/Funding';
 import ResourceProvider from './pages/ResourceProvider';
 import SMSTerms from './pages/SMSTerms';
+import Privacy from './pages/Privacy';
 import AdminDashboard from './pages/admin/AdminDashboard';
 
 const AuthenticatedApp = () => {
@@ -63,6 +64,7 @@ const AuthenticatedApp = () => {
         <Route path="/funding" element={<Funding />} />
         <Route path="/resource-provider" element={<ResourceProvider />} />
         <Route path="/sms-terms" element={<SMSTerms />} />
+        <Route path="/privacy" element={<Privacy />} />
       </Route>
       <Route path="/admin" element={<AdminDashboard />} />
       <Route path="*" element={<PageNotFound />} />

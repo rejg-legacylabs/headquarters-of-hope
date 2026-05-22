@@ -95,11 +95,11 @@ export default function Footer() {
 
         <div className="mt-16 pt-8 border-t border-white/10 flex flex-col sm:flex-row items-center justify-between gap-4">
           <p className="text-xs text-white/50">
-            &copy; {new Date().getFullYear()} Headquarters of Hope Foundation. All rights reserved.
+            &copy; {new Date().getFullYear()} Headquarters of Hope Foundation, Inc. All rights reserved. &middot; A 501(c)(3) Nonprofit &middot; EIN 39-3366072
           </p>
           <div className="flex items-center gap-4 text-xs text-white/50">
-            <span>A 501(c)(3) Nonprofit &middot; EIN 39-3366072</span>
-            <Link to="/sms-terms" className="hover:text-white/80 transition-colors underline">SMS Terms &amp; Privacy</Link>
+            <Link to="/privacy" className="hover:text-white/80 transition-colors underline">Privacy Policy</Link>
+            <Link to="/sms-terms" className="hover:text-white/80 transition-colors underline">SMS Terms</Link>
           </div>
         </div>
       </div>
