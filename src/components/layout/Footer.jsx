@@ -36,12 +36,8 @@ export default function Footer() {
                 <Heart className="w-5 h-5 text-primary" fill="currentColor" />
               </div>
               <div className="leading-tight">
-                <span className="font-display text-sm font-bold tracking-wide uppercase block text-white">
-                  Headquarters
-                </span>
-                <span className="text-[10px] font-body tracking-widest uppercase text-white/60">
-                  of Hope Foundation
-                </span>
+                <span className="font-display text-sm font-bold tracking-wide uppercase block text-white">Headquarters</span>
+                <span className="text-[10px] font-body tracking-widest uppercase text-white/60">of Hope Foundation</span>
               </div>
             </div>
             <p className="text-sm text-white/70 leading-relaxed mb-6">
@@ -64,45 +60,33 @@ export default function Footer() {
           </div>
 
           <div>
-            <h4 className="font-display text-xs font-bold tracking-widest uppercase text-secondary mb-5">
-              Quick Links
-            </h4>
+            <h4 className="font-display text-xs font-bold tracking-widest uppercase text-secondary mb-5">Quick Links</h4>
             <ul className="space-y-2.5">
               {quickLinks.map((link) => (
                 <li key={link.path}>
-                  <Link to={link.path} className="text-sm text-white/70 hover:text-white transition-colors">
-                    {link.label}
-                  </Link>
+                  <Link to={link.path} className="text-sm text-white/70 hover:text-white transition-colors">{link.label}</Link>
                 </li>
               ))}
             </ul>
           </div>
 
           <div>
-            <h4 className="font-display text-xs font-bold tracking-widest uppercase text-secondary mb-5">
-              Get Involved
-            </h4>
+            <h4 className="font-display text-xs font-bold tracking-widest uppercase text-secondary mb-5">Get Involved</h4>
             <ul className="space-y-2.5">
               {getInvolved.map((link) => (
                 <li key={link.path}>
-                  <Link to={link.path} className="text-sm text-white/70 hover:text-white transition-colors">
-                    {link.label}
-                  </Link>
+                  <Link to={link.path} className="text-sm text-white/70 hover:text-white transition-colors">{link.label}</Link>
                 </li>
               ))}
             </ul>
           </div>
 
           <div>
-            <h4 className="font-display text-xs font-bold tracking-widest uppercase text-secondary mb-5">
-              Programs
-            </h4>
+            <h4 className="font-display text-xs font-bold tracking-widest uppercase text-secondary mb-5">Programs</h4>
             <ul className="space-y-2.5">
               {programs.map((link) => (
                 <li key={link.path}>
-                  <Link to={link.path} className="text-sm text-white/70 hover:text-white transition-colors">
-                    {link.label}
-                  </Link>
+                  <Link to={link.path} className="text-sm text-white/70 hover:text-white transition-colors">{link.label}</Link>
                 </li>
               ))}
             </ul>
@@ -113,9 +97,10 @@ export default function Footer() {
           <p className="text-xs text-white/50">
             &copy; {new Date().getFullYear()} Headquarters of Hope Foundation. All rights reserved.
           </p>
-          <p className="text-xs text-white/50">
-            A 501(c)(3) Nonprofit Organization &middot; EIN 39-3366072
-          </p>
+          <div className="flex items-center gap-4 text-xs text-white/50">
+            <span>A 501(c)(3) Nonprofit &middot; EIN 39-3366072</span>
+            <Link to="/sms-terms" className="hover:text-white/80 transition-colors underline">SMS Terms &amp; Privacy</Link>
+          </div>
         </div>
       </div>
     </footer>
