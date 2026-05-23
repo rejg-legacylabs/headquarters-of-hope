@@ -11,6 +11,7 @@ const quickLinks = [
 
 const getInvolved = [
   { label: "Get Help", path: "/get-help" },
+  { label: "Volunteer", path: "/volunteer" },
   { label: "Refer Someone", path: "/partners" },
   { label: "Employers", path: "/employers" },
   { label: "Support Us", path: "/support" },
