@@ -1,0 +1,41 @@
+name: Sync Deploy to Master Chat Log
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - 'src/**'
+  workflow_dispatch:
+
+jobs:
+  log-deploy:
+    name: Log to Master Chat Log
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout HOH repo
+        uses: actions/checkout@v4
+
+      - name: Checkout Master Log repo
+        uses: actions/checkout@v4
+        with:
+          repository: rejg-legacylabs/rej-pathways-hub
+          token: ${{ secrets.REJG_GITHUB_TOKEN }}
+          path: master-log
+
+      - name: Write log entry
+        run: |
+          DATE=$(date '+%Y-%m-%d %H:%M UTC')
+          COMMIT=$(git log -1 --pretty='%s')
+          echo "" >> master-log/MASTER_CHAT_LOG.md
+          echo "## HOH Website Deploy — $DATE" >> master-log/MASTER_CHAT_LOG.md
+          echo "**Commit:** $COMMIT" >> master-log/MASTER_CHAT_LOG.md
+          echo "**Repo:** rejg-legacylabs/headquarters-of-hope" >> master-log/MASTER_CHAT_LOG.md
+
+      - name: Push log update
+        run: |
+          cd master-log
+          git config user.name 'REJG GitHub Actions'
+          git config user.email 'info@rejonesglobal.com'
+          git add MASTER_CHAT_LOG.md
+          git commit -m "auto: log HOH website deploy" --allow-empty
+          git push
