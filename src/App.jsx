@@ -24,6 +24,8 @@ import ResourceProvider from './pages/ResourceProvider';
 import SMSTerms from './pages/SMSTerms';
 import Privacy from './pages/Privacy';
 import Volunteer from './pages/Volunteer';
+import Events from './pages/Events';
+import Merch from './pages/Merch';
 import AdminDashboard from './pages/admin/AdminDashboard';
 
 const AuthenticatedApp = () => {
@@ -65,6 +67,8 @@ const AuthenticatedApp = () => {
         <Route path="/funding" element={<Funding />} />
         <Route path="/resource-provider" element={<ResourceProvider />} />
         <Route path="/volunteer" element={<Volunteer />} />
+        <Route path="/events" element={<Events />} />
+        <Route path="/merch" element={<Merch />} />
         <Route path="/sms-terms" element={<SMSTerms />} />
         <Route path="/privacy" element={<Privacy />} />
       </Route>
