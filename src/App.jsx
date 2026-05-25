@@ -28,7 +28,12 @@ import Events from './pages/Events';
 import Merch from './pages/Merch';
 import AdminDashboard from './pages/admin/AdminDashboard';
 
-const AuthenticatedApp = () => {
+/**
+ * AdminRoute — the ONLY route that waits for auth to load.
+ * Public routes render immediately so Google can index them.
+ * Showing a spinner on public pages causes Google Soft 404.
+ */
+const AdminRoute = () => {
   const { isLoadingAuth, isLoadingPublicSettings, authError, navigateToLogin } = useAuth();
 
   if (isLoadingPublicSettings || isLoadingAuth) {
@@ -48,34 +53,7 @@ const AuthenticatedApp = () => {
     }
   }
 
-  return (
-    <Routes>
-      <Route element={<PublicLayout />}>
-        <Route path="/" element={<Home />} />
-        <Route path="/about" element={<About />} />
-        <Route path="/programs" element={<Programs />} />
-        <Route path="/job-readiness" element={<JobReadiness />} />
-        <Route path="/housing-support" element={<HousingSupport />} />
-        <Route path="/partners" element={<Partners />} />
-        <Route path="/employers" element={<Employers />} />
-        <Route path="/get-help" element={<GetHelp />} />
-        <Route path="/success-pathways" element={<SuccessPathways />} />
-        <Route path="/contact" element={<Contact />} />
-        <Route path="/support" element={<Support />} />
-        <Route path="/faq" element={<FAQ />} />
-        <Route path="/transportation" element={<Transportation />} />
-        <Route path="/funding" element={<Funding />} />
-        <Route path="/resource-provider" element={<ResourceProvider />} />
-        <Route path="/volunteer" element={<Volunteer />} />
-        <Route path="/events" element={<Events />} />
-        <Route path="/merch" element={<Merch />} />
-        <Route path="/sms-terms" element={<SMSTerms />} />
-        <Route path="/privacy" element={<Privacy />} />
-      </Route>
-      <Route path="/admin" element={<AdminDashboard />} />
-      <Route path="*" element={<PageNotFound />} />
-    </Routes>
-  );
+  return <AdminDashboard />;
 };
 
 function App() {
@@ -83,12 +61,46 @@ function App() {
     <AuthProvider>
       <QueryClientProvider client={queryClientInstance}>
         <Router>
-          <AuthenticatedApp />
+          <Routes>
+            {/*
+              Public routes — render immediately, NO auth loading gate.
+              These are the pages Google indexes. They must have real content
+              on first render or Google marks them as Soft 404.
+            */}
+            <Route element={<PublicLayout />}>
+              <Route path="/" element={<Home />} />
+              <Route path="/about" element={<About />} />
+              <Route path="/programs" element={<Programs />} />
+              <Route path="/job-readiness" element={<JobReadiness />} />
+              <Route path="/housing-support" element={<HousingSupport />} />
+              <Route path="/partners" element={<Partners />} />
+              <Route path="/employers" element={<Employers />} />
+              <Route path="/get-help" element={<GetHelp />} />
+              <Route path="/success-pathways" element={<SuccessPathways />} />
+              <Route path="/contact" element={<Contact />} />
+              <Route path="/support" element={<Support />} />
+              <Route path="/faq" element={<FAQ />} />
+              <Route path="/transportation" element={<Transportation />} />
+              <Route path="/funding" element={<Funding />} />
+              <Route path="/resource-provider" element={<ResourceProvider />} />
+              <Route path="/volunteer" element={<Volunteer />} />
+              <Route path="/events" element={<Events />} />
+              <Route path="/merch" element={<Merch />} />
+              <Route path="/sms-terms" element={<SMSTerms />} />
+              <Route path="/privacy" element={<Privacy />} />
+            </Route>
+
+            {/* Admin — auth-gated, loading spinner is appropriate here */}
+            <Route path="/admin" element={<AdminRoute />} />
+
+            {/* 404 */}
+            <Route path="*" element={<PageNotFound />} />
+          </Routes>
         </Router>
         <Toaster />
       </QueryClientProvider>
     </AuthProvider>
-  )
+  );
 }
 
-export default App
+export default App;

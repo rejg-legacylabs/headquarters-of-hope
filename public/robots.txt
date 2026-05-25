@@ -1,0 +1,9 @@
+User-agent: *
+Allow: /
+
+# Keep admin dashboard out of search results
+Disallow: /admin
+Disallow: /admin/
+
+# Sitemap location
+Sitemap: https://www.headquartersofhope.org/sitemap.xml

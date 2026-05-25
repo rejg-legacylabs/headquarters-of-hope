@@ -1,0 +1,137 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
+
+  <!-- Homepage -->
+  <url>
+    <loc>https://www.headquartersofhope.org/</loc>
+    <changefreq>weekly</changefreq>
+    <priority>1.0</priority>
+  </url>
+
+  <!-- About -->
+  <url>
+    <loc>https://www.headquartersofhope.org/about</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.9</priority>
+  </url>
+
+  <!-- Programs -->
+  <url>
+    <loc>https://www.headquartersofhope.org/programs</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.9</priority>
+  </url>
+
+  <!-- Get Help -->
+  <url>
+    <loc>https://www.headquartersofhope.org/get-help</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.9</priority>
+  </url>
+
+  <!-- Job Readiness -->
+  <url>
+    <loc>https://www.headquartersofhope.org/job-readiness</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+  </url>
+
+  <!-- Housing Support -->
+  <url>
+    <loc>https://www.headquartersofhope.org/housing-support</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+  </url>
+
+  <!-- Transportation -->
+  <url>
+    <loc>https://www.headquartersofhope.org/transportation</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+  </url>
+
+  <!-- Success Pathways -->
+  <url>
+    <loc>https://www.headquartersofhope.org/success-pathways</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+  </url>
+
+  <!-- Partners -->
+  <url>
+    <loc>https://www.headquartersofhope.org/partners</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+
+  <!-- Employers -->
+  <url>
+    <loc>https://www.headquartersofhope.org/employers</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+
+  <!-- Volunteer -->
+  <url>
+    <loc>https://www.headquartersofhope.org/volunteer</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+
+  <!-- Support / Donate -->
+  <url>
+    <loc>https://www.headquartersofhope.org/support</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+
+  <!-- Contact -->
+  <url>
+    <loc>https://www.headquartersofhope.org/contact</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+
+  <!-- Resource Provider -->
+  <url>
+    <loc>https://www.headquartersofhope.org/resource-provider</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+  </url>
+
+  <!-- Events -->
+  <url>
+    <loc>https://www.headquartersofhope.org/events</loc>
+    <changefreq>weekly</changefreq>
+    <priority>0.6</priority>
+  </url>
+
+  <!-- Merch -->
+  <url>
+    <loc>https://www.headquartersofhope.org/merch</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.5</priority>
+  </url>
+
+  <!-- FAQ -->
+  <url>
+    <loc>https://www.headquartersofhope.org/faq</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.5</priority>
+  </url>
+
+  <!-- Privacy Policy -->
+  <url>
+    <loc>https://www.headquartersofhope.org/privacy</loc>
+    <changefreq>yearly</changefreq>
+    <priority>0.3</priority>
+  </url>
+
+  <!-- SMS Terms -->
+  <url>
+    <loc>https://www.headquartersofhope.org/sms-terms</loc>
+    <changefreq>yearly</changefreq>
+    <priority>0.3</priority>
+  </url>
+
+</urlset>
